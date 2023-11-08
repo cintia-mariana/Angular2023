@@ -7,6 +7,8 @@ import { TrackModel } from '@core/models/tracks.model';
 export class OrderListPipe implements PipeTransform {
 
   transform(value: Array<any>, args: string | null = null, sort: string = 'asc'): TrackModel[] {
+    try{ 
+    
     if (args === null) {
       return value
     } else {
@@ -25,6 +27,10 @@ export class OrderListPipe implements PipeTransform {
 
       return (sort === 'asc') ? tmpList : tmpList.reverse()
     }
+  } catch (e) {
+    console.log('Algo paso');
+    return value
   }
 
+}
 }
