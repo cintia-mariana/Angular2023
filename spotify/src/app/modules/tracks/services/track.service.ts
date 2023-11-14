@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class TrackService {
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTRlM2FmMjlkZWNkNDRkZDhlMGZlNTMiLCJpYXQiOjE2OTk3OTU3MjMsImV4cCI6MTY5OTgzODkyM30.7BXbgCnDvgmaPdHTmAr_cqbWJsHKGuMt4TMUfsheP6Q';
+  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTRlM2FmMjlkZWNkNDRkZDhlMGZlNTMiLCJpYXQiOjE2OTk4OTgxMjYsImV4cCI6MTY5OTk0MTMyNn0.5JPHcMb_P5PkStbSzN95STI_mJLLeq-PllwLwiUkQ5o';
 
 
   dataTracksTrending$:Observable<TrackModel[]> = of ([])

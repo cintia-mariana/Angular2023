@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthModule } from './modules/auth/auth.module';
 import { HomePageComponent } from '@modules/home/pages/home-page/home-page.component';
+import { SessionGuard } from '@core/guards/session.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,8 @@ const routes: Routes = [
   {
     path:'',
     component: HomePageComponent,
-    loadChildren:()=> import (`./modules/home/home.module`).then(m => m.HomeModule)
+    loadChildren:()=> import (`./modules/home/home.module`).then(m => m.HomeModule),
+    canActivate:[SessionGuard]
   }
 ];
 
