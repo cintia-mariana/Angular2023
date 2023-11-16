@@ -9,68 +9,47 @@ import { BehaviorSubject, Observable, Observer, Subject } from 'rxjs';
 export class MultimediaService {
   callback: EventEmitter<any> = new EventEmitter<any>()
 
-  myObservable1$: BehaviorSubject<any> = new BehaviorSubject('aguaaaaaaaaaaaaaaaaa')
+  public trackInfo$: BehaviorSubject<any>= new BehaviorSubject(undefined)
+  public audio! : HTMLAudioElement
 
-  public trackInfo$: BehaviorSubject<any> = new BehaviorSubject(undefined)
-  public audio!: HTMLAudioElement //TODO <audio>
+  // myObservable1$: BehaviorSubject<any> = new BehaviorSubject('aguaaaaaaaaaaaaaaaaa')
+
+  // public trackInfo$: BehaviorSubject<any> = new BehaviorSubject(undefined)
+  // public audio!: HTMLAudioElement //TODO <audio>
   public timeElapsed$: BehaviorSubject<string> = new BehaviorSubject('00:00')
   public timeRemaining$: BehaviorSubject<string> = new BehaviorSubject('-00:00')
   public playerStatus$: BehaviorSubject<string> = new BehaviorSubject('paused')
   public playerPercentage$: BehaviorSubject<number> = new BehaviorSubject(0)
 
   constructor() {
-
-    setTimeout(() => {
-      this.myObservable1$.next('aguaaaaaa')
-    },1000)
-    
-    setTimeout(() => {
-      this.myObservable1$.error('ERROR')
-      // this.myObservable1$.next('aguaaaaaa')
-    },3500)
-
-
-
-    // // this.myObservable1$ =new Observable(
-    // //   (observer: Observer<any>) => {
-    // //     observer.next('aguaaaaaa')
-
-    // //     setTimeout(()=>{
-    // //       observer.complete()
-    // //     },1000)
-
-
-
-    // //     setTimeout(()=>{
-    // //       observer.next('aguaaaaa')
-    // //     },2500)
-
-    // //     setTimeout(()=>{
-    // //       observer.error('aguaaaaa')
-    // //     },3500)
-
-    // //   }
-    //   )
-
-    this.audio = new Audio()
-
+    this.audio= new Audio()
+    // this.audio = new Audio()
+    // this.trackInfo$.subscribe(responseOK => {
+    //   if (responseOK) {
+    //     this.setAudio(responseOK)
+    //   }
+    // })
+    // this.listenAllEvents()
     this.trackInfo$.subscribe(responseOK => {
-      if (responseOK) {
-        this.setAudio(responseOK)
-      }
-    })
+      if(responseOK){
+      console.log('0909090909',responseOK);
+      this.setAudio(responseOK)
+    }
 
-    this.listenAllEvents()
+  })
+  this.listenAllEvents()
 
   }
 
   private listenAllEvents(): void {
 
-    this.audio.addEventListener('timeupdate', this.calculateTime, false)
+    this.audio.addEventListener('timeupdate',this.calculateTime, false)
     this.audio.addEventListener('playing', this.setPlayerStatus, false)
     this.audio.addEventListener('play', this.setPlayerStatus, false)
     this.audio.addEventListener('pause', this.setPlayerStatus, false)
     this.audio.addEventListener('ended', this.setPlayerStatus, false)
+
+    
 
   }
 
@@ -93,10 +72,16 @@ export class MultimediaService {
   }
 
   private calculateTime = () => {
-    const { duration, currentTime } = this.audio
+   const { duration, currentTime} = this.audio
     this.setTimeElapsed(currentTime)
     this.setRemaining(currentTime, duration)
     this.setPercentage(currentTime, duration)
+
+
+    // const { duration, currentTime } = this.audio
+    // this.setTimeElapsed(currentTime)
+    // this.setRemaining(currentTime, duration)
+    // this.setPercentage(currentTime, duration)
   }
 
   private setPercentage(currentTime: number, duration: number): void {

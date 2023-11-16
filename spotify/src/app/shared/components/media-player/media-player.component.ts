@@ -9,6 +9,7 @@ import { Subscription, Observable } from 'rxjs'; //TODO: Programacion reactiva!
   styleUrls: ['./media-player.component.css']
 })
 export class MediaPlayerComponent implements OnInit, OnDestroy {
+ 
   @ViewChild('progressBar') progressBar: ElementRef = new ElementRef('')
   listObservers$: Array<Subscription> = []
   state: string = 'paused'
@@ -16,17 +17,13 @@ export class MediaPlayerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-   const Observable1$ = this.multimediaService.myObservable1$
-   .subscribe(
-    (responseOK) => {
-      //todo:next()
-      console.log('El agua llega perfecto!',responseOK);
-    },
-    (responseFail) =>{
-      //todo:error()
-      console.log('Se tapo la tuberia!');
-    }
-   )
+    const observer1$ = this.multimediaService.playerStatus$
+    .subscribe(status => this.state = status)
+
+    this.listObservers$= [observer1$]
+    
+
+ 
   }
 
   ngOnDestroy(): void {
